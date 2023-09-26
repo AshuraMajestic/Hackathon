@@ -5,7 +5,7 @@ const path = require("path");
 const port = process.env.PORT || 5152;
 require("./db/conn.js");
 const POST = require("./model/post");
-
+const RegisterStudent = require("./model/student.js")
 
 const staticPath = path.join(__dirname, "../public");
 const templatePath = path.join(__dirname, "../templates/views");
@@ -32,27 +32,49 @@ app.get("/", (req, res) => {
 });
 
 
+app.get("/adminHome", (req, res) => {
+    res.render("adminHome");
+})
 
-app.get("/register", (req, res) => {
-    res.render("register");
-});
 
-
-app.post("/register", async (req, res) => {
+app.get("/adminStudent", (req, res) => {
+    res.render("adminStudent");
+})
+app.post("/adminStudent", async (req, res) => {
     try {
-        const registerStudent = new POST({
-            user: req.body.user,
-            post: req.body.post,
+        const registerStudent = new RegisterStudent({
+            firstname: req.body.firstname,
+            middlename: req.body.middlename,
+            lastname: req.body.lastname,
+            gender: req.body.gender,
+            enroll: req.body.enroll,
+            email: req.body.email,
+            semester: req.body.semester,
             password: req.body.password,
+            collegecode: req.body.collegecode
+
         });
 
         const registered = await registerStudent.save();
-        res.status(201).render("home");
+        res.status(201).render("adminHome");
     } catch (error) {
         console.log(error);
-        res.status(404).render("error");
+        res.status(404).render("error", {
+            errorMessage: "Sorry, Looks like something is Wrong",
+        });
     }
-});
+})
+
+app.get("/adminUniversity", (req, res) => {
+    res.render("adminUniversity");
+})
+app.get("/adminFaculty", (req, res) => {
+    res.render("adminFaculty");
+})
+app.get("/adminCollege", (req, res) => {
+    res.render("adminCollege");
+})
+
 app.post("/login", async (req, res) => {
     try {
         const user = req.body.user;
@@ -70,7 +92,7 @@ app.post("/login", async (req, res) => {
         }
         else {
             res.status(404).render("error", {
-                errorMessage: "Password or email do not match with the database",
+                errorMessage: "Post does not match with entered user id",
             });
         }
     } catch (error) {

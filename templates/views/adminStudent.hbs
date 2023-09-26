@@ -1,0 +1,136 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/admin.css" />
+    <link rel="stylesheet" href="../style/bootstrap.min.css" />
+    <script src="https://use.fontawesome.com/3903c9d7fd.js"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css"
+      rel="stylesheet"
+    />
+    <title>HomePage</title>
+  </head>
+  <body class="row">
+    <div class="col-1">
+      {{>navbar}}
+    </div>
+    <div class="col-11 container center">
+      <form class="row" action="/adminStudent" method="POST">
+        <div class="col-12">
+          <h1 class="heading">Enter Student Detail</h1>
+        </div>
+        <div class="col-4 name">
+          <input
+            autocomplete="off"
+            type="text0"
+            class="form-control"
+            id="inputFirst"
+            name="firstname"
+            required
+          />
+          <label for="inputFirst" class="form-label">First Name</label>
+        </div>
+        <div class="col-4 name">
+          <input
+            autocomplete="off"
+            type="text"
+            class="form-control"
+            id="inputMiddle"
+            name="middlename"
+          />
+          <label for="inputMiddle" class="form-label">Middle Name</label>
+        </div>
+        <div class="col-4 name">
+          <input
+            autocomplete="off"
+            type="text"
+            class="form-control"
+            id="inputLast"
+            name="lastname"
+            required
+          />
+          <label for="inputLast" class="form-label">Last Name</label>
+        </div>
+        <div class="col-6 gender">
+          <label for="male" class="pe-3">Gender:</label>
+          <label for="male" class="form-check-label male">Male</label>
+          <input
+            id="male"
+            type="radio"
+            name="gender"
+            value="M"
+            class="form-check-input genderm"
+            input="gender"
+          />
+          <label for="Female" class="form-check-label female">Female</label>
+          <input
+            type="radio"
+            name="gender"
+            value="F"
+            class="form-check-input genderm"
+            id="Female"
+          />
+        </div>
+        <div class="col-6 enrollment">
+          <input
+            autocomplete="off"
+            type="text"
+            name="enroll"
+            class="form-control"
+            id="inputRoll"
+            required
+          />
+          <label for="inputRoll" class="form-label">Enrollment Number</label>
+        </div>
+        <div class="col-6 email name">
+          <input
+            autocomplete="off"
+            type="email"
+            name="email"
+            class="form-control"
+            id="inputUser"
+          />
+          <label for="inputUser" class="form-label">Email</label>
+        </div>
+        <div class="col-6 name">
+          <input
+            autocomplete="off"
+            type="number"
+            name="semester"
+            class="form-control"
+            id="inputSem"
+          />
+          <label for="inputSem" class="form-label">Semster</label>
+        </div>
+
+        <div class="col-6 password name">
+          <input
+            name="password"
+            type="password"
+            class="form-control"
+            id="inputPassword"
+            autocomplete="off"
+          />
+          <label for="inputPassword" class="form-label">Password</label>
+        </div>
+        <div class="col-6 name">
+          <input
+            name="collegecode"
+            type="text"
+            class="form-control"
+            id="inputCollegeCode"
+            autocomplete="off"
+          />
+          <label for="inputCollegeCode" class="form-label">College Code</label>
+        </div>
+
+        <div class="col-12 center">
+          <button type="submit" class="btn registerbtn">Register</button>
+        </div>
+      </form>
+    </div>
+    <script src="../js/bootstrap.js" type="text/javascript"></script>
+  </body>
+</html>
