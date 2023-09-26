@@ -3,6 +3,8 @@ const app = express();
 const hbs = require("hbs");
 const path = require("path");
 const port = process.env.PORT || 5152;
+require("./db/conn.js");
+const POST = require("./model/post");
 
 
 const staticPath = path.join(__dirname, "../public");
@@ -26,8 +28,57 @@ app.set("views", templatePath);
 hbs.registerPartials(partialsPath);
 
 app.get("/", (req, res) => {
-    res.render("index");
+    res.render("login");
 });
+
+
+
+app.get("/register", (req, res) => {
+    res.render("register");
+});
+
+
+app.post("/register", async (req, res) => {
+    try {
+        const registerStudent = new POST({
+            user: req.body.user,
+            post: req.body.post,
+            password: req.body.password,
+        });
+
+        const registered = await registerStudent.save();
+        res.status(201).render("home");
+    } catch (error) {
+        console.log(error);
+        res.status(404).render("error");
+    }
+});
+app.post("/login", async (req, res) => {
+    try {
+        const user = req.body.user;
+        const post = req.body.post;
+        const password = req.body.password;
+
+        const userEnroll = await POST.findOne({ user: user });
+
+
+        if (userEnroll.post === post && userEnroll.password === password) {
+            res.status(201).render("adminHome");
+        }
+        else if (userEnroll.post === post && userEnroll.password === password) {
+            res.status(201).render("home");
+        }
+        else {
+            res.status(404).render("error", {
+                errorMessage: "Password or email do not match with the database",
+            });
+        }
+    } catch (error) {
+        res.status(404).render("error");
+        console.log(error);
+    }
+});
+
 
 
 app.listen(port, () => {
