@@ -7,6 +7,7 @@ require("./db/conn.js");
 const POST = require("./model/post");
 const RegisterStudent = require("./model/student.js")
 const RegisterCollege = require("./model/college.js");
+const RegisterFaculty = require("./model/faculty.js");
 
 const staticPath = path.join(__dirname, "../public");
 const templatePath = path.join(__dirname, "../templates/views");
@@ -73,6 +74,33 @@ app.get("/adminUniversity", (req, res) => {
 app.get("/adminFaculty", (req, res) => {
     res.render("adminFaculty");
 })
+
+app.post("/adminFaculty", async (req, res) => {
+    try {
+        const registerFaculty = new RegisterFaculty({
+            firstname: req.body.firstname,
+            middlename: req.body.middlename,
+            lastname: req.body.lastname,
+            gender: req.body.gender,
+            id: req.body.id,
+            email: req.body.email,
+            experience: req.body.experience,
+            password: req.body.password,
+            collegecode: req.body.collegecode,
+            expertise: req.body.expertise
+        });
+
+        const registered = await registerFaculty.save();
+        res.status(201).render("adminHome");
+    } catch (error) {
+        console.log(error);
+        res.status(404).render("error", {
+            errorMessage: "Sorry, Looks like something is Wrong",
+        });
+    }
+})
+
+
 app.get("/adminCollege", (req, res) => {
     res.render("adminCollege");
 })
