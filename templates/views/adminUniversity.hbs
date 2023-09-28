@@ -1,45 +1,64 @@
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/admin.css" />
-    <link rel="stylesheet" href="../style/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/adminUniversity.css">
-    <script src="https://use.fontawesome.com/3903c9d7fd.js"></script>
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css"
-      rel="stylesheet"
-    />
+{{>headerAdmin}}
     <title>HomePage</title>
   </head>
-  <body class="center">
-
-    {{>navbar}}
-
-     <div class="container center">
-      <form action="/adminUniversity" method="POST">
-        <div class="title">ADD UNIVERSITY</div>
-        <div class="input-box underline">
+  <body class="row">
+    <div class="col-1">
+      {{>navbar}}
+    </div>
+    <div class="col-11 container center">
+      <form class="row" action="/adminUniversity" method="POST">
+        <div class="col-12">
+          <h1 class="heading">Enter University Detail</h1>
+        </div>
+        <div class="col-6">
           <input
+            autocomplete="off"
+            type="text0"
+            class="form-control"
+            id="inputname"
+            name="universityname"
+            required
+          />
+          <label for="inputname" class="form-label">University Name</label>
+        </div>
+
+        <div class="col-6">
+          <input
+            autocomplete="off"
             type="text"
-            placeholder="University Name"
-            name="user"
+            name="universitycode"
+            class="form-control"
+            id="inputCode"
             required
           />
-          <div class="underline"></div>
+          <label for="inputCode" class="form-label">University Code</label>
         </div>
-        <div class="input-box">
+        <div class="col-6">
           <input
-            type="password"
-            placeholder="CollegeName"
-            name="password"
-            required
+            autocomplete="off"
+            type="email"
+            name="email"
+            class="form-control"
+            id="inputUser"
           />
-          <div class="underline"></div>
+          <label for="inputUser" class="form-label">Email</label>
         </div>
-        <div class="input-box button">
-          <input type="submit" name="" value="Continue" />
+
+        <div class="col-12 name">
+          <input
+            name="address"
+            type="text"
+            class="form-control"
+            id="inputCollegeAdd"
+            autocomplete="off"
+          />
+          <label for="inputCollegeCode" class="form-label">Headquater Address</label>
+        </div>
+
+        <div class="col-12 center">
+          <button type="submit" class="btn registerbtn">Register</button>
         </div>
       </form>
     </div>

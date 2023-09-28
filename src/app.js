@@ -33,6 +33,38 @@ app.get("/", (req, res) => {
     res.render("login");
 });
 
+app.post("/login", async (req, res) => {
+    try {
+        const user = req.body.user;
+        const post = req.body.post;
+        const password = req.body.password;
+
+        const userEnroll = await POST.findOne({ user: user });
+
+
+        if (userEnroll.post === 'admin' && userEnroll.password === password) {
+            res.status(201).render("adminHome");
+        }
+        else if (userEnroll.post === 'student' && userEnroll.password === password) {
+            res.status(201).render("home");
+        }
+        else if (userEnroll.post === 'faculty' && userEnroll.password === password) {
+            res.status(201).render("facultyHome");
+        }
+        else {
+            res.status(404).render("error", {
+                errorMessage: "Post does not match with entered user id",
+            });
+        }
+    } catch (error) {
+        res.status(404).render("error");
+        console.log(error);
+    }
+});
+
+
+
+// ======================== Admin Page Starts here =============================
 
 app.get("/adminHome", (req, res) => {
     res.render("adminHome");
@@ -125,33 +157,14 @@ app.post("/adminCollege", async (req, res) => {
     }
 })
 
-
-app.post("/login", async (req, res) => {
-    try {
-        const user = req.body.user;
-        const post = req.body.post;
-        const password = req.body.password;
-
-        const userEnroll = await POST.findOne({ user: user });
-
-
-        if (userEnroll.post === post && userEnroll.password === password) {
-            res.status(201).render("adminHome");
-        }
-        else if (userEnroll.post === post && userEnroll.password === password) {
-            res.status(201).render("home");
-        }
-        else {
-            res.status(404).render("error", {
-                errorMessage: "Post does not match with entered user id",
-            });
-        }
-    } catch (error) {
-        res.status(404).render("error");
-        console.log(error);
-    }
-});
-
+// ======================== Admin Page Ends here =============================
+// ======================== Faculty Section Starts here =============================
+app.get('/facultyHome', (req, res) => {
+    res.render('facultyHome');
+})
+app.get('/facultyNotification', (req, res) => {
+    res.render('facultyNotification');
+})
 
 
 app.listen(port, () => {
